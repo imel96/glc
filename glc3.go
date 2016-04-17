@@ -14,5 +14,5 @@ func main() {
 func mfHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	fmt.Fprintf(w, "Hello, %q", r.Form["r"])
-	fmt.Fprintf(w, "Bye, %q", dice.MinimumFaces([]string{"137", "364", "115", "724"}))
+	fmt.Fprintf(w, "Bye, %v", dice.MinimumFaces([]string{"137", "364", "115", "724"}))
 }
