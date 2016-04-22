@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
-	dice "github.com/imel96/glc/dice"
+//	dice "github.com/imel96/glc/dice"
+	dice "glc/dice"
+
 	"net/http"
 )
 

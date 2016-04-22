@@ -1,7 +1,8 @@
 package dice
 
 import (
-	//"fmt"
+	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -11,13 +12,16 @@ func MinimumFaces(rolls []string) int {
 
 	for _, roll := range rolls {
 
+		i := 0
+		tmp := make([]int, len(roll));
+
 		for _, pip := range strings.Split(roll, "") {
-			//fmt.Printf("pip %v\n", pip)
 			face, _ := strconv.Atoi(pip)
-			if max < face {
-				max = face
-			}
+			tmp[i] = face
+			i++
 		}
+		sort.Sort(sort.IntSlice(tmp))
+		fmt.Printf("pip %v\n", tmp)
 	}
 	return max
 }
