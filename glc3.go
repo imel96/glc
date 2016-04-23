@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	dice "github.com/imel96/glc/dice"
-//	dice "glc/dice"
 	"net/http"
 	"strings"
 )
 
+// http://quiksilver.local:8080/mf?r=24412,56316,66666,45625
 func main() {
 	http.HandleFunc("/mf", mfHandler)
 	http.ListenAndServe(":8080", nil)
