@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-//	dice "github.com/imel96/glc/dice"
-	dice "glc/dice"
-
+	dice "github.com/imel96/glc/dice"
+//	dice "glc/dice"
 	"net/http"
+	"strings"
 )
 
 func main() {
@@ -15,6 +15,6 @@ func main() {
 
 func mfHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	fmt.Fprintf(w, "Hello, %q", r.Form["r"])
-	fmt.Fprintf(w, "Bye, %v", dice.MinimumFaces([]string{"137", "364", "115", "724"}))
+	fmt.Fprintf(w, "Rolls: %q", r.Form["r"])
+	fmt.Fprintf(w, "Minimum faces:, %v", dice.MinimumFaces(strings.Split(r.Form["r"][0], ",")))
 }
