@@ -50,7 +50,7 @@ func max(matrix [][]int) []int {
 
 	for _, row := range matrix {
 		sort.Sort(sort.IntSlice(row))
-		mrow = append(mrow, row[len(row) - 1])
+		mrow = append(mrow, row[len(row)-1])
 	}
 	return mrow
 }
