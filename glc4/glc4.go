@@ -5,15 +5,16 @@ import (
 	"net"
 	"strconv"
 	"strings"
-	"glc/survey"
+	"github.com/imel96/glc/survey"
 	"github.com/streadway/amqp"
 )
 
 /*
-		fmt.Println("buyer: ", survey.CountBigShoppers(100, []int{97}));
-		fmt.Println("buyer: ", survey.CountBigShoppers(10, []int{9, 9, 9, 9, 9}));
-		fmt.Println("buyer: ", survey.CountBigShoppers(7, []int{1, 2, 3}));
-		fmt.Println("buyer: ", survey.CountBigShoppers(5, []int{3, 3, 3}));
+echo -n "5#3,3" | nc localhost 8080
+echo -n "100#97" | nc localhost 8080
+echo -n "10#9,9,9,9,9" | nc localhost 8080
+echo -n "7#1,2,3" | nc localhost 8080
+echo -n "5#3,3,3" | nc localhost 8080
 */
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 		}
 	}
 	defer l.Close()
+	buf := make([]byte, 1500)
 
 	for {
 		conn, err := l.Accept()
@@ -36,19 +38,18 @@ func main() {
 		if err != nil {
 			return
 		}
-		go handleRequest(conn)
+		n, _ := conn.Read(buf)
+		conn.Close()
+		go handleRequest(string(buf[:n]))
 	}
 }
 
-func handleRequest(c net.Conn) {
-	buf := make([]byte, 1500)
+func handleRequest(req string) {
 	N := 0
 	tmp := ""
 	var s []int
-	n, _ := c.Read(buf)
 
-	_, err := fmt.Sscanf(string(buf[:n]), "%d#%s", &N, &tmp)
-	c.Close()
+	_, err := fmt.Sscanf(req, "%d#%s", &N, &tmp)
 
 	if err != nil {
 		fmt.Println("Sscanf", err)
