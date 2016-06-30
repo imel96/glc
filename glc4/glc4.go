@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/imel96/glc/survey"
 	"net"
 	"strconv"
 	"strings"
-	"github.com/imel96/glc/survey"
-	"github.com/streadway/amqp"
 )
 
 /*
@@ -18,16 +17,11 @@ echo -n "5#3,3,3" | nc localhost 8080
 */
 
 func main() {
-	l, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	l, err := net.Listen("tcp", ":8080")
 
 	if err != nil {
-		fmt.Println(err);
-		l, err := net.Listen("tcp", ":8080")
-
-		if err != nil {
-			fmt.Println(err);
-			return
-		}
+		fmt.Println(err)
+		return
 	}
 	defer l.Close()
 	buf := make([]byte, 1500)
